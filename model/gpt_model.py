@@ -12,6 +12,7 @@ import random
 import time
 from multiprocessing import Pool
 from typing import List, Union, Dict
+import os
 
 import numpy as np
 import openai
@@ -28,7 +29,7 @@ class GPT3ModelAPI(object):
         self.openai_key_idx = openai_key_offset_idx
         self.openai_key_candidates = self.config.openai_api_key if type(self.config.openai_api_key) is list else [
             self.config.openai_api_key]
-        assert self.config.engine_name in ["text-ada-002", "text-davinci-002", "text-davinci-003",
+        assert self.config.engine_name in ["text-ada-002", "text-davinci-002", "text-davinci-003", "gpt-3.5-turbo-instruct",
                                            "text-embedding-ada-002"]
 
     def get_openai_response(self, post_prompt: str, key_idx_offset: int = None):
@@ -149,7 +150,8 @@ class GPT3TextCompletionModel(GPT3ModelAPI):
     def get_openai_response(self, post_prompt: str, key_idx_offset: int = None):
         # https://beta.openai.com/docs/api-reference/completions/create
         openai_key_idx = self.openai_key_idx if key_idx_offset is None else self.openai_key_idx + key_idx_offset
-        openai.api_key = self.openai_key_candidates[openai_key_idx]
+        # openai.api_key = self.openai_key_candidates[openai_key_idx]
+        openai.api_key = os.getenv("OPENAI_API_KEY")
         response_lst = openai.Completion.create(
             engine=self.config.engine_name,
             prompt=post_prompt,
@@ -171,7 +173,8 @@ class GPT3EmbeddingModel(GPT3ModelAPI):
 
     def get_openai_response(self, input_text: str, key_idx_offset: int = None) -> np.array:
         openai_key_idx = self.openai_key_idx if key_idx_offset is None else self.openai_key_idx + key_idx_offset
-        openai.api_key = self.openai_key_candidates[openai_key_idx]
+        # openai.api_key = self.openai_key_candidates[openai_key_idx]
+        openai.api_key = os.getenv("OPENAI_API_KEY")
         text_embedding = get_embedding(input_text, self.config.engine_name)
         text_embedding = np.array(text_embedding)
         return text_embedding

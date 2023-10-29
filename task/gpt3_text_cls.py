@@ -98,6 +98,8 @@ class GPT3TextCLS(object):
         batch_size = self.config.gpt3_model_config.batch_size if self.config.gpt3_backbone != "vanilla" else 1
         for idx, data_item in tqdm(enumerate(chunked(test_items, batch_size)),
                                    total=math.ceil(len(test_items) / batch_size), desc="step-1"):
+            # print('------> batch_size: ', batch_size)
+            # print('------> data_item: ', data_item)
             if batch_size == 1:
                 data_item = data_item[0]
             if idx % self.log_interval == 0:
@@ -119,10 +121,13 @@ class GPT3TextCLS(object):
                 else:
                     raise ValueError(batch_size)
             elif self.config.prompt_type == "zero-shot":
-                input_text_with_prompt = []
-                for item in data_item:
-                    text_with_prompt = self.prompt.get_model_input(item.text, )
-                    input_text_with_prompt.append(text_with_prompt)
+                if batch_size == 1:
+                    input_text_with_prompt = self.prompt.get_model_input(data_item.text, )
+                else:
+                    input_text_with_prompt = []
+                    for item in data_item:
+                        text_with_prompt = self.prompt.get_model_input(item.text, )
+                        input_text_with_prompt.append(text_with_prompt)
             else:
                 raise ValueError(self.config.prompt_type)
 
@@ -365,6 +370,8 @@ class GPT3TextCLS(object):
             data_item_lst = load_jsonl(saved_step3_result_path)
             pred_label_lst = [str(item["pred_label"]) for item in data_item_lst]
             gold_label_lst = [str(item["gold_label"]) for item in data_item_lst]
+            print('pred_label_lst:', pred_label_lst)
+            print('gold_label_lst:', gold_label_lst)
             eval_acc_score = accuracy_score(gold_label_lst, pred_label_lst)
             eval_performance[non_verbalizer] = {"acc_score": eval_acc_score, "total_num": len(pred_label_lst)}
             self.logger.info(f"STEP 4: evaluated ACC score is {eval_acc_score}")

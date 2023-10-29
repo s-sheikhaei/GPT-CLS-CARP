@@ -4,7 +4,7 @@
 # file: carp_davinci003.sh
 
 
-PROJECT_PATH=/home/lixiaoya/GPT-CLS-CARP
+PROJECT_PATH=/home/jovyan/SATD_Identification/CARP-Sun-2023/GPT-CLS-CARP
 export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 
@@ -15,7 +15,7 @@ SETTING=carp_16shot_davinci003
 
 
 
-for seed in 2333 8866 9998 6624 1314
+for seed in 2333 # 8866 9998 6624 1314
 do
   echo "=============================================================================="
   echo "SEED IS " ${seed}

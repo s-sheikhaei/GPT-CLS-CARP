@@ -4,7 +4,7 @@
 # file: carp_davinci003.sh
 
 
-PROJECT_PATH=/home/lixiaoya/GPT-CLS-CARP
+PROJECT_PATH=/home/jovyan/SATD_Identification/CARP-Sun-2023/GPT-CLS-CARP
 export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 

@@ -4,7 +4,7 @@
 # file: carp_davinci003.sh
 
 
-PROJECT_PATH=/home/lixiaoya/GPT-CLS-CARP
+PROJECT_PATH=/home/jovyan/SATD_Identification/CARP-Sun-2023/GPT-CLS-CARP
 export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 
@@ -25,6 +25,6 @@ do
   python3 ${PROJECT_PATH}/task/gpt3_text_cls.py \
   --seed ${seed} --random \
   --config_path ${PROJECT_PATH}/configs/${DATASET}/${MODEL}/${STRATEGY}/${SETTING}.json \
-  --step_idx 2-3-4
+  --step_idx 1-2-3-4 # use 2-3-4 for the remaining seeds
 done
 

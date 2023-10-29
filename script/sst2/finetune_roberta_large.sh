@@ -4,16 +4,16 @@
 # file: carp_davinci003.sh
 
 
-PROJECT_PATH=/home/lixiaoya/GPT-CLS-CARP
+PROJECT_PATH=/home/jovyan/SATD_Identification/CARP-Sun-2023/GPT-CLS-CARP
 export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 
-BERT_PATH=/data2/lixiaoya/gpt_data_models/roberta-large
+BERT_PATH='roberta-large'
 # BERT_PATH=/data2/lixiaoya/models/roberta-large
 
 FILE_NAME=sst2_roberta_large
 SAVE_TOPK=20
-DATA_DIR=/data2/lixiaoya/gpt_data_models/original_sst2
+DATA_DIR=/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original
 
 DATA_SIGN=sst2
 
@@ -30,10 +30,10 @@ VAL_CHECK_INTERVAL=0.25
 
 for TRAIN_BATCH_SIZE in 16
 do
-  for LR in 1e-5 3e-5 2e-5 4e-5
+  for LR in 1e-5 # 3e-5 2e-5 4e-5
   do
 
-    OUTPUT_DIR=/data2/lixiaoya/outputs/gpt-text/sst2_fix/${FILE_NAME}/original_gpu8_epoch${MAX_EPOCH}_bs${TRAIN_BATCH_SIZE}_lr${LR}_weightdecay${WEIGHT_DECAY}_warmup${WARMUP_PROPORTION}_maxlen${MAX_LEN}_dropout${DROPOUT}_grad${ACC_GRAD}
+    OUTPUT_DIR=/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs2/gpt-text/sst2_fix/${FILE_NAME}/original_gpu8_epoch${MAX_EPOCH}_bs${TRAIN_BATCH_SIZE}_lr${LR}_weightdecay${WEIGHT_DECAY}_warmup${WARMUP_PROPORTION}_maxlen${MAX_LEN}_dropout${DROPOUT}_grad${ACC_GRAD}
     mkdir -p ${OUTPUT_DIR}
     mkdir -p ${OUTPUT_DIR}/checkpoint
 
@@ -43,7 +43,7 @@ do
     cp ${PROJECT_PATH}/script/${DATA_SIGN}/finetune_roberta_large.sh ${OUTPUT_DIR}
     echo "==============================================================="
 
-    CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 ${PROJECT_PATH}/task/finetune_mlm_text_cls.py \
+    CUDA_VISIBLE_DEVICES=0 python3 ${PROJECT_PATH}/task/finetune_mlm_text_cls.py \
     --lr ${LR} \
     --max_epochs ${MAX_EPOCH} \
     --max_length ${MAX_LEN} \
@@ -58,7 +58,7 @@ do
     --dataset_name ${DATA_SIGN} \
     --save_path ${OUTPUT_DIR} \
     --val_check_interval ${VAL_CHECK_INTERVAL} \
-    --gpus="8" \
+    --gpus="1" \
     --precision=16
     done
 done
