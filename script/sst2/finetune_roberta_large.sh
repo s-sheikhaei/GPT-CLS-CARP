@@ -33,7 +33,7 @@ do
   for LR in 1e-5 # 3e-5 2e-5 4e-5
   do
 
-    OUTPUT_DIR=/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs2/gpt-text/sst2_fix/${FILE_NAME}/original_gpu8_epoch${MAX_EPOCH}_bs${TRAIN_BATCH_SIZE}_lr${LR}_weightdecay${WEIGHT_DECAY}_warmup${WARMUP_PROPORTION}_maxlen${MAX_LEN}_dropout${DROPOUT}_grad${ACC_GRAD}
+    OUTPUT_DIR=/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/trained_models/${FILE_NAME}/epoch${MAX_EPOCH}_bs${TRAIN_BATCH_SIZE}_lr${LR}_weightdecay${WEIGHT_DECAY}_warmup${WARMUP_PROPORTION}_maxlen${MAX_LEN}_dropout${DROPOUT}_grad${ACC_GRAD}
     mkdir -p ${OUTPUT_DIR}
     mkdir -p ${OUTPUT_DIR}/checkpoint
 

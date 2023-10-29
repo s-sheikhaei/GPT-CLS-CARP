@@ -1,7 +1,7 @@
 {
   "dataset_name": "sst2",
   "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
-  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_zeroshot/explain_classify_davinci003_random_desc1",
+  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_zeroshot/cot_turbo",
   "gpt3_backbone": "vanilla",
   "gpt3_model_config": {
     "openai_api_key":

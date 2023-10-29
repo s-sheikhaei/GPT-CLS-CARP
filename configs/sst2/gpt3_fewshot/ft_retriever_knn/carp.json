@@ -1,7 +1,7 @@
 {
   "dataset_name": "sst2",
   "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
-  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_fewshot/mlm_neighbor_sample_dynamic/explain_classify_8nearest_davinci003_temp3_mult",
+  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_fewshot/mlm_neighbor_sample_dynamic/carp_8nearest_turbo",
   "gpt3_backbone": "vanilla",
   "gpt3_model_config": {
     "openai_api_key":
@@ -30,28 +30,21 @@
     "instance_strategy": "finetuned-mlm-nearest-neighbor",
     "data_retriever_candidate_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
     "retriever_name_or_path": "roberta-large",
-    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs2/gpt-text/sst2_fix/sst2_roberta_large/original_gpu8_epoch5_bs16_lr1e-5_weightdecay0.05_warmup0.06_maxlen200_dropout0.2_grad2/checkpoint/epoch=1-val_loss=0.1233-val_acc=0.9644.ckpt",
+    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/trained_models/sst2_roberta_large/epoch5_bs16_lr1e-5_weightdecay0.05_warmup0.06_maxlen200_dropout0.2_grad2/checkpoint/epoch=1-val_loss=0.1233-val_acc=0.9644.ckpt",
     "file_saved_retriever_results": "/home/jovyan/SATD_Identification/CARP-Sun-2023/sst2_nearest_neighbors/test_finetuned_roberta-large_candtrain_thres0.0_top24_seed9998.jsonl",
     "model_backbone": "gpt-3",
     "prompt_strategy": "few-shot",
-    "task_description": "This is an overall sentiment classifier. \nFirst, list clues and explain the reasoning process for determining the sentiment of INPUT sentence.\nNext, based on the clues, the reasoning process and the INPUT sentence, classify the overall sentiment as Positive or Negative.",
+    "task_description": "This is an overall sentiment classifier for input opinion snippets.\nPresent CLUES (i.e., keywords, phrases, contextual information, semantic meaning, semantic relationships, tones, references) that support the sentiment determination of the input.\nNext, deduce the diagnostic REASONING process from premises (i.e., clues, input) that support the sentiment determination.\nFinally, based on clues, reasoning and the input, categorize the overall SENTIMENT of input as Positive or Negative.",
     "delimiter": "\n\n",
-    "demonstration_pattern": "INPUT: <TEXT> \nSENTIMENT: <VERBALIZER-LABEL>\nClues and the reasoning process: ",
-    "demonstration_subtask_description": "Present the clues and reasoning that support the SENTIMENT determination of the INPUT sentence.",
+    "demonstration_pattern": "INPUT: <TEXT>\nSENTIMENT: <VERBALIZER-LABEL>\n",
+    "demonstration_subtask_description": "Present positive and negative CLUES (i.e., keywords, phrases, contextual information, semantic meaning, semantic relationships, tones, references). Then explain the diagnostic REASONING that support the SENTIMENT determination of the INPUT.",
+    "demonstration_subtask_description_pos": -1,
     "demonstration_ranking": "score_l2h",
     "assemble_demonstration_strategy": "model_generate",
-    "assemble_demonstration_pattern": "INPUT: <TEXT> \nClues and the reasoning process: <MODEL-GENERATE>\nSENTIMENT: <VERBALIZER-LABEL>",
+    "assemble_demonstration_pattern": "INPUT: <TEXT>\nCLUES and REASONING: <MODEL-GENERATE>\nSENTIMENT: <VERBALIZER-LABEL>",
     "verbalizer": {
       "1": "Positive",
       "0": "Negative"
-    },
-    "feasible_verbalizer": {
-      "1": [
-        "positive"
-      ],
-      "0": [
-        "negative"
-      ]
     },
     "verbalizer_position_idx": -1,
     "non_verbalizer": [

@@ -1,7 +1,7 @@
 {
   "dataset_name": "sst2",
   "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
-  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_fewshot/mlm_neighbor_sample_dynamic/classify_16nearest_davinci003_temp2",
+  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_fewshot/mlm_neighbor_sample_dynamic/vanilla_8nearest_turbo",
   "gpt3_backbone": "vanilla",
   "gpt3_model_config": {
     "openai_api_key":
@@ -25,12 +25,12 @@
   "prompt_type": "few-shot-dynamic",
   "prompt_config": {
     "gradient_update": false,
-    "instance_num": 16,
+    "instance_num": 8,
     "max_prompt_len": 3800,
     "instance_strategy": "finetuned-mlm-nearest-neighbor",
     "data_retriever_candidate_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
     "retriever_name_or_path": "roberta-large",
-    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs2/gpt-text/sst2_fix/sst2_roberta_large/original_gpu8_epoch5_bs16_lr1e-5_weightdecay0.05_warmup0.06_maxlen200_dropout0.2_grad2/checkpoint/epoch=1-val_loss=0.1233-val_acc=0.9644.ckpt",
+    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/trained_models/sst2_roberta_large/epoch5_bs16_lr1e-5_weightdecay0.05_warmup0.06_maxlen200_dropout0.2_grad2/checkpoint/epoch=1-val_loss=0.1233-val_acc=0.9644.ckpt",
     "file_saved_retriever_results": "/home/jovyan/SATD_Identification/CARP-Sun-2023/sst2_nearest_neighbors/test_finetuned_roberta-large_candtrain_thres0.0_top24_seed9998.jsonl",
     "model_backbone": "gpt-3",
     "prompt_strategy": "few-shot",

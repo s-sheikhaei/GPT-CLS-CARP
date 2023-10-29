@@ -11,7 +11,7 @@ export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 DATASET=sst2
 MODEL=gpt3_fewshot
 STRATEGY=ft_retriever_knn
-SETTING=carp_16shot_davinci003
+SETTING=cot
 
 
 

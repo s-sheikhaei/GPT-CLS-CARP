@@ -1,7 +1,7 @@
 {
   "dataset_name": "sst2",
   "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
-  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_zeroshot/fclue_reason_classify_davinci003_temp20",
+  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_zeroshot/vanilla_turbo",
   "gpt3_backbone": "vanilla",
   "gpt3_model_config": {
     "openai_api_key":
@@ -29,8 +29,8 @@
     "instance_strategy": "NULL",
     "model_backbone": "gpt-3",
     "prompt_strategy": "zero-shot",
-    "prompt_pattern": "<TASK-DESC><DELIMITER>INPUT: <INPUT-TEXT>\n",
-    "task_description": "This is an overall sentiment classifier for opinion snippets.\nFirst, list CLUES (i.e., keywords, phrases, contextual information, semantic relations, semantic meaning, tones, references) for determining the overall SENTIMENT of INPUT.\nSecond, induce a diagnostic REASONING process from CLUES and the INPUT for determining the overall SENTIMENT (Limit the number of words to 130).\nThird, determine the overall SENTIMENT of INPUT as Positive or Negative considering CLUES, the REASONING process and the INPUT.",
+    "prompt_pattern": "<TASK-DESC><DELIMITER>INPUT: <INPUT-TEXT>\nSENTIMENT: ",
+    "task_description": "This is an overall sentiment classifier for opinion snippets. Classify the overall SENTIMENT of the INPUT as Positive or Negative.",
     "delimiter": "\n\n",
     "verbalizer": {
       "1": "Positive",
@@ -39,9 +39,7 @@
     "verbalizer_position_idx": -1,
     "non_verbalizer": [
       "wrong",
-      "random",
-      "retry",
-      "retry-various"
+      "random"
     ]
   }
 }

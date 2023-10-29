@@ -10,7 +10,7 @@ export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 DATASET=sst2
 MODEL=gpt3_zeroshot
-SETTING=vanilla_davinci003
+SETTING=carp
 
 
 for seed in 2333 # 8866 9998 6624 1314
@@ -22,5 +22,5 @@ do
   python3 ${PROJECT_PATH}/task/gpt3_text_cls.py \
   --seed ${seed} \
   --config_path ${PROJECT_PATH}/configs/${DATASET}/${MODEL}/${SETTING}.json \
-  --step_idx 1-2-3-4 
+  --step_idx 1-2-3-4
 done

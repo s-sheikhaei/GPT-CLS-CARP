@@ -11,11 +11,12 @@ export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 DATASET=sst2
 MODEL=gpt3_fewshot
 STRATEGY=ft_retriever_knn
-SETTING=zerocot_16shot_davinci003
+SETTING=vanilla
 
 
+# 8866 9998 6624 1314
 
-for seed in 2333 8866 9998 6624 1314
+for seed in 2333
 do
   echo "=============================================================================="
   echo "SEED IS " ${seed}
@@ -24,6 +25,6 @@ do
   python3 ${PROJECT_PATH}/task/gpt3_text_cls.py \
   --seed ${seed} --random \
   --config_path ${PROJECT_PATH}/configs/${DATASET}/${MODEL}/${STRATEGY}/${SETTING}.json \
-  --step_idx 1-2-3-4
+  --step_idx 1-2-3-4 # use 2-3-4 for the remaining seeds
 done
 

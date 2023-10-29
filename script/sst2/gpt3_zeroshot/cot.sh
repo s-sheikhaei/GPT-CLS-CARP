@@ -10,7 +10,7 @@ export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 DATASET=sst2
 MODEL=gpt3_zeroshot
-SETTING=zerocot_davinci003
+SETTING=cot
 
 
 for seed in 2333 # 8866 9998 6624 1314
