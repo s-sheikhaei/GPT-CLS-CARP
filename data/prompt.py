@@ -290,7 +290,7 @@ class GPT3FewShotSamplingPrompt(Prompt):
         if self.max_instance_len is None:
             self.max_instance_len = 200
         if self.max_explain_len is None:
-            self.max_explain_len = 100
+            self.max_explain_len = 200
         if self.demonstration_subtask_description_pos is None:
             self.demonstration_subtask_description_pos = 0
         if self.feasible_verbalizer is None:
@@ -731,7 +731,7 @@ class ChatGPTFewShotSamplingPrompt(Prompt):
         if self.max_instance_len is None:
             self.max_instance_len = 200
         if self.max_explain_len is None:
-            self.max_explain_len = 100
+            self.max_explain_len = 200
         if self.demonstration_subtask_description_pos is None:
             self.demonstration_subtask_description_pos = 0
         if self.feasible_verbalizer is None:
