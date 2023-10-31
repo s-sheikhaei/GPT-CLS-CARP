@@ -21,7 +21,7 @@ class FinetuneMLMDataset(Dataset):
                  data_type: str = "train",
                  max_length: int = 512, do_lower_case: bool = False):
         super().__init__()
-        assert dataset_name.lower() in ["sst2", "agnews", "20news_expire", "r8", "r52", "mr"]
+        assert dataset_name.lower() in ["sst2", "obrien", "agnews", "20news_expire", "r8", "r52", "mr"]
         self.dataloader = dataloader
         self.data_items = self.dataloader.load_data_files(data_type)
         self.tokenizer = Tokenizer(llm_dir, do_lower_case=do_lower_case, max_len=max_length)
@@ -51,7 +51,7 @@ class T5Dataset(Dataset):
                  dataset_name: str = "sst2", data_type: str = "train", max_length: int = 512,
                  do_lower_case: bool = False):
         super(T5Dataset, self).__init__()
-        assert dataset_name.lower() in ["sst2", "agnews", "20news_expire", "r8", "r52"]
+        assert dataset_name.lower() in ["sst2", "obrien","agnews", "20news_expire", "r8", "r52"]
         self.dataloader = dataloader
         self.data_items = self.dataloader.load_data_files(data_type)
         self.tokenizer = AutoTokenizer.from_pretrained(llm_name_or_dir, do_lower_case=do_lower_case, max_len=max_length)

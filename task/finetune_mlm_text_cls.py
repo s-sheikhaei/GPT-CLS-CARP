@@ -40,7 +40,7 @@ from transformers import AdamW, get_linear_schedule_with_warmup
 from transformers import AutoConfig, AutoModelForSequenceClassification
 from torchmetrics import Accuracy
 from data.dataloader import SST2Dataloader, AGNewsDataloader, TwentyNewsGroupDataloader, R8Dataloader, R52Dataloader, \
-    MRDataloader
+    MRDataloader, OBrienDataloader
 from data.dataset import FinetuneMLMDataset
 from data.data_utils import collate_tensors_to_max_length, collate_to_max_length
 from utils.get_logger import get_info_logger
@@ -60,6 +60,8 @@ class TextClassificationTask(pl.LightningModule):
         self.bert_dir = args.bert_path
         if "sst2" in self.args.dataset_name.lower():
             self.dataloader = SST2Dataloader(self.args.data_dir)
+        elif "obrien" in self.args.dataset_name.lower():
+            self.dataloader = OBrienDataloader(self.args.data_dir)
         elif "agnews" in self.args.dataset_name.lower():
             self.dataloader = AGNewsDataloader(self.args.data_dir)
         elif "20news" in self.args.dataset_name.lower():
@@ -296,6 +298,8 @@ def evaluate(eval_ckpt_path: str, prefix: str = "model", mlm_dir: str = "", data
              test_file_name: str = "test", dataset_name: str = "sst2", max_len: int = 200):
     if dataset_name == "sst2":
         dataloader = SST2Dataloader(data_dir)
+    elif dataset_name == "obrien":
+        dataloader = OBrienDataloader(data_dir)
     elif dataset_name == "agnews":
         dataloader = AGNewsDataloader(data_dir)
     elif dataset_name == "r52":
@@ -353,6 +357,8 @@ def evaluate(eval_ckpt_path: str, prefix: str = "model", mlm_dir: str = "", data
 def file_evaluate(data_dir: str, save_file_path: str, test_file_name: str = "test", dataset_name: str = "sst2"):
     if dataset_name == "sst2":
         dataloader = SST2Dataloader(data_dir)
+    elif dataset_name == "obrien":
+        dataloader = OBrienDataloader(data_dir)
     elif dataset_name == "agnews":
         dataloader = AGNewsDataloader(data_dir)
     elif dataset_name == "r8":

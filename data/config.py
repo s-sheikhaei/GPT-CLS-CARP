@@ -12,7 +12,7 @@ from typing import Dict
 from transformers import RobertaConfig, BertConfig
 
 from data.dataloader import SST2Dataloader, AGNewsDataloader, TwentyNewsGroupDataloader, R8Dataloader, R52Dataloader, \
-    MRDataloader
+    MRDataloader, OBrienDataloader
 from data.file_utils import check_file_and_mkdir_for_save
 from data.prompt import GPT3ZeroShotPrompt, MaskedLMZeroShotPrompt, Prompt, GPT3FewShotSamplingPrompt, FLANT5Prompt, \
     ChatGPTFewShotSamplingPrompt
@@ -70,7 +70,7 @@ class BaseConfig:
                     config_pairs[slot_key] = slot_value
                 elif isinstance(slot_value, AGNewsDataloader) or isinstance(slot_value, SST2Dataloader) or isinstance(
                         slot_value, TwentyNewsGroupDataloader) or isinstance(slot_value, R8Dataloader) or isinstance(
-                    slot_value, R52Dataloader) or isinstance(slot_value, MRDataloader):
+                    slot_value, R52Dataloader) or isinstance(slot_value, MRDataloader) or isinstance(slot_value, OBrienDataloader):
                     config_pairs[slot_key] = str(slot_value)
                 else:
                     config_pairs[slot_key] = slot_value
@@ -136,6 +136,8 @@ class GPT3TextCLSTaskConfig(BaseConfig):
 
         if "sst2" in self.dataset_name.lower():
             self.dataloader = SST2Dataloader(self.data_dir_path)
+        elif "obrien" in self.dataset_name.lower():
+            self.dataloader = OBrienDataloader(self.data_dir_path)
         elif "agnews" in self.dataset_name.lower():
             self.dataloader = AGNewsDataloader(self.data_dir_path)
         elif "20news_expire" in self.dataset_name.lower():
@@ -206,6 +208,8 @@ class FLANT5TextCLSConfig(BaseConfig):
 
         if "sst2" in self.dataset_name.lower():
             self.dataloader = SST2Dataloader(self.data_dir_path)
+        elif "obrien" in self.dataset_name.lower():
+            self.dataloader = OBrienDataloader(self.data_dir_path)
         elif "agnews" in self.dataset_name.lower():
             self.dataloader = AGNewsDataloader(self.data_dir_path)
         elif "20news" in self.dataset_name.lower():

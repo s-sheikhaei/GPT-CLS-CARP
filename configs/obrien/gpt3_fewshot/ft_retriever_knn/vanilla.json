@@ -1,0 +1,66 @@
+{
+  "dataset_name": "obrien",
+  "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/obrien/fold_0",
+  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/obrien/gpt3_fewshot/mlm_neighbor_sample_dynamic/vanilla_8nearest_turbo/fold_0",
+  "gpt3_backbone": "vanilla",
+  "gpt3_model_config": {
+    "openai_api_key":
+      "sk-rdm",
+    "batch_size": 18,
+    "engine_name": "gpt-3.5-turbo-instruct",
+    "max_retries": 12,
+    "max_tokens": 200,
+    "temperature": 0.7,
+    "top_p": 1,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "best_of": 1,
+    "max_sleep_time": 1200,
+    "request_timeout": 10000,
+    "rate_limit": 50,
+    "rate_limit_delay": 70,
+    "logprobs": 5,
+    "init_delay": 1
+  },
+  "prompt_type": "few-shot-dynamic",
+  "prompt_config": {
+    "gradient_update": false,
+    "instance_num": 8,
+    "max_prompt_len": 3800,
+    "instance_strategy": "finetuned-mlm-nearest-neighbor",
+    "data_retriever_candidate_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/obrien/fold_0",
+    "retriever_name_or_path": "roberta-large",
+    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/trained_models/obrien_roberta_large/epoch8_bs16_lr2e-5_weightdecay0.05_warmup0.06_maxlen512_dropout0.2_grad1/checkpoint/epoch=4-val_loss=1.0962-val_acc=0.6709.ckpt",
+    "file_saved_retriever_results": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/nearest_neighbors/obrien/test_finetuned_roberta-large_candtrain_thres0.0_top24_seed9998_fold0.jsonl",
+    "model_backbone": "gpt-3",
+    "prompt_strategy": "few-shot",
+    "task_description": "There are six types of software technical debts: \nRequirement: Requirement debts can be functional or non-functional. In the functional case, implementations are left unfinished or in need of future feature support. In the non-functional case, the corresponding code does not meet the requirement standards (speed, memory usage, security, etc...). \nCode: Bad coding practices leading to poor legibility of code, making it difficult to understand and maintain. \nM&T: Problems found in implementations involving testing or monitoring subcomponents. \nDefect: Identified defects in the system that should be addressed. \nDesign: Areas which violate good software design practices, causing poor flexibility to evolving business needs. \nDocumentation: Inadequate documentation that exists within the software system. \n\nClassify the given INPUT as Requirement, Code, M&T, Defect, Design, or Documentation.",
+    "delimiter": "\n\n",
+    "demonstration_ranking": "score_l2h",
+    "demonstration_pattern": "Input: <TEXT>\nClass: <VERBALIZER-LABEL>",
+    "assemble_demonstration_strategy": "fill_pattern",
+    "verbalizer": {
+      "0": "Requirement",
+      "1": "Code",
+      "2": "M&T",
+      "3": "Defect",
+      "4": "Design",
+      "5": "Documentation"
+    },
+    "feasible_verbalizer": {
+      "0": ["requirement"],
+      "1": ["code"],
+      "2": ["m&t"],
+      "3": ["defect"],
+      "4": ["design"],
+      "5": ["documentation", "document"]
+    },
+    "verbalizer_position_idx": -1,
+    "non_verbalizer": [
+      "wrong",
+      "random",
+      "retry",
+      "retry-various"
+    ]
+  }
+}

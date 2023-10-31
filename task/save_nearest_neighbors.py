@@ -10,7 +10,7 @@ import argparse
 
 from data.data_retriever import FinetunedMLMRetriever, SimCSERetriever
 from data.dataloader import SST2Dataloader, AGNewsDataloader, TwentyNewsGroupDataloader, R8Dataloader, R52Dataloader, \
-    MRDataloader
+    MRDataloader, OBrienDataloader
 from utils.random_seed import set_basic_random_seed
 
 
@@ -39,6 +39,8 @@ def main():
 
     if args.dataset_name == "sst2":
         data_loader = SST2Dataloader(args.data_dir)
+    elif args.dataset_name == "obrien":
+        data_loader = OBrienDataloader(args.data_dir)
     elif args.dataset_name == "agnews":
         data_loader = AGNewsDataloader(args.data_dir)
     elif args.dataset_name == "20news_expire":

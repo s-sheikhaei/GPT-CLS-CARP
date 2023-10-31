@@ -226,8 +226,38 @@ class SST2Dataloader(AbsDataloader):
         # 1 -> positive
         return ["0", "1"]
 
+class OBrienDataloader(AbsDataloader):
+    """
+    Desc:
+        source from the paper '...'
+        domain:
+        # data in train/dev/test:
+    """
+
+    def __init__(self, data_dir_path: str, filename_suffix: str = "tsv"):
+        super(OBrienDataloader, self).__init__()
+        self.data_dir_path = data_dir_path
+        self.filename_suffix = filename_suffix
+
+    def load_data_files(self, data_type: str = "test", skip_header: bool = False, offset: int = 0) -> List[DataItem]:
+        assert data_type in ["train", "dev", "test"]
+        data_file = os.path.join(self.data_dir_path, f"{data_type}.{self.filename_suffix}")
+        data_items = OBrienDataloader.load_tsv_file(data_file, skip_header=skip_header)
+        assert offset >= 0 and offset < len(data_items)
+        if offset != 0:
+            data_items = data_items[offset:]
+
+        return data_items
+
+    @classmethod
+    def get_labels(cls):
+        # Original labels are [0, 1] -> ["negative", "positive"]
+        # 0 -> negative
+        # 1 -> positive
+        return ["0", "1", "2", "3", "4", "5"]
+
     def __str__(self):
-        return "Dataloader Object For SST-2."
+        return "Dataloader Object For OBrien."
 
 
 class TwentyNewsGroupDataloader(AbsDataloader):
