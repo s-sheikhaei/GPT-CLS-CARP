@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# file: carp_davinci003.sh
-
 
 PROJECT_PATH=/home/jovyan/SATD_Identification/CARP-Sun-2023/GPT-CLS-CARP
 export PYTHONPATH="$PYTHONPATH:$PROJECT_PATH"
 
 
-DATASET=sst2
+DATASET=obrien
 MODEL=gpt3_fewshot
 STRATEGY=ft_retriever_knn
 SETTING=cot
 
 
+# 8866 9998 6624 1314
 
-for seed in 2333 # 8866 9998 6624 1314
+for seed in 2333
 do
   echo "=============================================================================="
   echo "SEED IS " ${seed}

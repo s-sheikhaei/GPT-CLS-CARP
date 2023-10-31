@@ -1,7 +1,7 @@
 {
-  "dataset_name": "sst2",
-  "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
-  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/sst2_original/gpt3_fewshot/mlm_neighbor_sample_dynamic/cot_8nearest_turbo",
+  "dataset_name": "obrien",
+  "data_dir_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/obrien/fold_0",
+  "save_log_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/gpt_text/obrien/gpt3_fewshot/mlm_neighbor_sample_dynamic/cot_8nearest_turbo/fold_0",
   "gpt3_backbone": "vanilla",
   "gpt3_model_config": {
     "openai_api_key":
@@ -28,30 +28,34 @@
     "instance_num": 8,
     "max_prompt_len": 3800,
     "instance_strategy": "finetuned-mlm-nearest-neighbor",
-    "data_retriever_candidate_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/sst2_original",
+    "data_retriever_candidate_dir": "/home/jovyan/SATD_Identification/CARP-Sun-2023/data/obrien/fold_0",
     "retriever_name_or_path": "roberta-large",
-    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/trained_models/sst2_roberta_large/epoch5_bs16_lr1e-5_weightdecay0.05_warmup0.06_maxlen200_dropout0.2_grad2/checkpoint/epoch=1-val_loss=0.1233-val_acc=0.9644.ckpt",
-    "file_saved_retriever_results": "/home/jovyan/SATD_Identification/CARP-Sun-2023/sst2_nearest_neighbors/test_finetuned_roberta-large_candtrain_thres0.0_top24_seed9998.jsonl",
+    "retriever_ckpt_path": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/trained_models/obrien_roberta_large/epoch8_bs16_lr2e-5_weightdecay0.05_warmup0.06_maxlen512_dropout0.2_grad1/checkpoint/epoch=4-val_loss=1.0962-val_acc=0.6709.ckpt",
+    "file_saved_retriever_results": "/home/jovyan/SATD_Identification/CARP-Sun-2023/outputs/nearest_neighbors/obrien/test_finetuned_roberta-large_candtrain_thres0.0_top24_seed9998_fold0.jsonl",
     "model_backbone": "gpt-3",
     "prompt_strategy": "few-shot",
-    "task_description": "This is an overall sentiment classifier. \nFirst, list clues and explain the reasoning process for determining the sentiment of INPUT sentence.\nNext, based on the clues, the reasoning process and the INPUT sentence, classify the overall sentiment as Positive or Negative.",
+    "task_description": "There are six types of software technical debts: \nRequirement: Requirement debts can be functional or non-functional. In the functional case, implementations are left unfinished or in need of future feature support. In the non-functional case, the corresponding code does not meet the requirement standards (speed, memory usage, security, etc...). \nCode: Bad coding practices leading to poor legibility of code, making it difficult to understand and maintain. \nM&T: Problems found in implementations involving testing or monitoring subcomponents. \nDefect: Identified defects in the system that should be addressed. \nDesign: Areas which violate good software design practices, causing poor flexibility to evolving business needs. \nDocumentation: Inadequate documentation that exists within the software system. \n\nFirst, list clues and explain the reasoning process for determining the SATD type of INPUT sentence.\nNext, based on the clues, the reasoning process and the INPUT sentence, classify the given INPUT as Requirement, Code, M&T, Defect, Design, or Documentation.",
     "delimiter": "\n\n",
-    "demonstration_pattern": "INPUT: <TEXT> \nSENTIMENT: <VERBALIZER-LABEL>\nClues and the reasoning process: ",
-    "demonstration_subtask_description": "Present the clues and reasoning that support the SENTIMENT determination of the INPUT sentence.",
+    "demonstration_pattern": "INPUT: <TEXT> \nCLASS: <VERBALIZER-LABEL>\nClues and the reasoning process: ",
+    "demonstration_subtask_description": "Present the clues and reasoning that support the SATD type determination of the INPUT sentence.",
     "demonstration_ranking": "score_l2h",
     "assemble_demonstration_strategy": "model_generate",
-    "assemble_demonstration_pattern": "INPUT: <TEXT> \nClues and the reasoning process: <MODEL-GENERATE>\nSENTIMENT: <VERBALIZER-LABEL>",
+    "assemble_demonstration_pattern": "INPUT: <TEXT> \nClues and the reasoning process: <MODEL-GENERATE>\nCLASS: <VERBALIZER-LABEL>",
     "verbalizer": {
-      "1": "Positive",
-      "0": "Negative"
+      "0": "Requirement",
+      "1": "Code",
+      "2": "M&T",
+      "3": "Defect",
+      "4": "Design",
+      "5": "Documentation"
     },
     "feasible_verbalizer": {
-      "1": [
-        "positive"
-      ],
-      "0": [
-        "negative"
-      ]
+      "0": ["requirement"],
+      "1": ["code"],
+      "2": ["m&t"],
+      "3": ["defect"],
+      "4": ["design"],
+      "5": ["documentation", "document"]
     },
     "verbalizer_position_idx": -1,
     "non_verbalizer": [
